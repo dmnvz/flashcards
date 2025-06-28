@@ -1,3 +1,4 @@
+// Данные карточек
 const cardsData = [
   {
     front: "Don’t apologize to these assholes, you fucking pussy!",
@@ -34,6 +35,7 @@ const cardsData = [
 let currentIndex = 0;
 const cardContainer = document.getElementById('cardContainer');
 
+// Рендер одной карточки
 function renderCard(index) {
   const { front, back, audio } = cardsData[index];
 
@@ -42,7 +44,7 @@ function renderCard(index) {
       <div class="flip-card-inner">
         <div class="flip-card-face flip-card-front">
           <p class="card-text">${front}</p>
-          <button class="play-button">
+          <button class="play-button" aria-label="Play/Pause">
             <svg viewBox="0 0 100 100"><polygon points="35,25 35,75 75,50" /></svg>
           </button>
           <audio>
@@ -59,6 +61,7 @@ function renderCard(index) {
   setupCardEvents(cardContainer.querySelector('.flip-card'));
 }
 
+// Настройка событий на карточке
 function setupCardEvents(card) {
   const button = card.querySelector('.play-button');
   const icon = button.querySelector('svg');
@@ -67,33 +70,29 @@ function setupCardEvents(card) {
   const setPlayIcon = () => {
     icon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
   };
-
   const setPauseIcon = () => {
-    icon.innerHTML = `
-      <rect x="30" y="25" width="12" height="50" />
-      <rect x="58" y="25" width="12" height="50" />
-    `;
+    icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
   };
 
-  card.addEventListener('click', (e) => {
+  // Клик по карточке — переворот
+  card.addEventListener('click', e => {
     if (!button.contains(e.target)) {
       card.classList.toggle('flipped');
     }
   });
 
-  button.addEventListener('click', (e) => {
+  // Плей/пауза
+  button.addEventListener('click', e => {
     e.stopPropagation();
-
+    // Останавливаем все другие аудио
     document.querySelectorAll('audio').forEach(a => {
       if (a !== audio) {
         a.pause();
         const otherIcon = a.closest('.flip-card')?.querySelector('.play-button svg');
-        if (otherIcon) {
-          otherIcon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
-        }
+        if (otherIcon) otherIcon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
       }
     });
-
+    // Сами play/pause
     if (audio.paused) {
       audio.play();
       setPauseIcon();
@@ -103,10 +102,14 @@ function setupCardEvents(card) {
     }
   });
 
+  // При окончании воспроизведения — вернуть иконку Play
   audio.addEventListener('ended', setPlayIcon);
+
+  // Инициализировать иконку Play
   setPlayIcon();
 }
 
+// Кнопки Random и Next
 document.getElementById('randomBtn').addEventListener('click', () => {
   let next;
   do {
@@ -121,4 +124,5 @@ document.getElementById('nextBtn').addEventListener('click', () => {
   renderCard(currentIndex);
 });
 
+// Первый рендер
 renderCard(currentIndex);
