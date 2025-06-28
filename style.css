@@ -1,41 +1,31 @@
 :root {
-  --card-width:    320px;
-  --card-height:   320px;
-  --font-size:     20px;
-  --button-size:   56px;
-  --icon-size:     20px;
-
-  /* вот эта переменная управляет смещением персонажа */
-  --char-offset: 120px;  
+  /* ... ваши другие переменные ... */
+  --char-offset: 120px; /* регулирует глубину выезда персонажа */
 }
-
-/* …далее ваш общий CSS… */
 
 /* персонаж */
 .character-image {
   position: absolute;
-  /* стартуем на --char-offset пикселей ниже верхней границы карточки */
-  top: calc(0px - var(--char-offset));
+  top: 0;                            /* начало на верхней границе карточки */
   left: 50%;
-  /* смещаем вниз на такое же значение */
-  transform: translateX(-50%) translateY(var(--char-offset));
+  transform: translate(-50%, var(--char-offset)); /* стартовое смещение вниз */
   width: 140px;
   pointer-events: none;
   opacity: 0;
   z-index: 0;
 
-  /* анимация выплывания */
+  /* анимация: от смещения вниз до translateY(0) */
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
 }
 
 @keyframes rise {
   from {
-    transform: translateX(-50%) translateY(var(--char-offset));
+    transform: translate(-50%, var(--char-offset));
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(0);
+    transform: translate(-50%, 0);
     opacity: 1;
   }
 }
@@ -45,5 +35,3 @@
   width: 100%;
   height: auto;
 }
-
-/* …остальной ваш CSS… */
