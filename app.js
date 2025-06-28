@@ -2,32 +2,32 @@ const cardsData = [
   {
     front: "Don’t apologize to these assholes, you fucking pussy!",
     back:  "Не извиняйся перед этими уродами, лошара!",
-    audio: "https://www.dropbox.com/scl/fi/0ru89x8pr6v6jkdkjp2jq/Don-t-apologize-to-these-assholes.-Bryan-Cranston.mp3?rlkey=mjbus84wlwqhhcozf8s872wq6&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   },
   {
     front: "Did I screw up?",
     back:  "Я накосячил?",
-    audio: "https://www.dropbox.com/scl/fi/lsap6y5xae6ih3xghhlx5/Did-I-screw-up.-Bryan-Cranston.mp3?rlkey=0s8hyr8x846qgbfpg2h23hxk5&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   },
   {
     front: "We run this place. You need to slow down or we're going to have a problem.",
     back:  "Это наша территория. Тебе надо сбавить обороты, иначе будут проблемы.",
-    audio: "https://www.dropbox.com/scl/fi/6lixj9h2aaw84fo9qy42a/We-run-this-place.-You-need-to-slow-down.-Bryan-Cranston.mp3?rlkey=cnv0e9iq6awe0zu7guvo46497&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   },
   {
     front: "The beginning was great but the end was a fiasco.",
     back:  "Начали за здравие, кончили за упокой.",
-    audio: "https://www.dropbox.com/scl/fi/98jom6198oy6cvrcx6jv7/The-beginning-was-great.-Bryan-Cranston.mp3?rlkey=534mgizbhy3b8klrrekwnxy5g&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   },
   {
     front: "No one can do a good job if they’re not relaxed.",
     back:  "Никто не может хорошо себя проявить, если он не расслаблен.",
-    audio: "https://www.dropbox.com/scl/fi/2s9qfj8iswoq43n44i1ev/No_one_can_do_-_good_job_if-they-re_not_relaxed_Bryan_Cranston.mp3?rlkey=bln5w5tc6uavt7xkr0ghce3q6&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   },
   {
     front: "Damn! I wish I hadn't done that.",
     back:  "Блин! Лучше бы я этого не делал.",
-    audio: "https://www.dropbox.com/scl/fi/pzj49ri50etlfe2yngc7z/Damn-I-wish-I-hadn-t-done-that.-Bryan-Cranston.mp3?rlkey=ptlr9cha42oszyz9fduuo1nxq&raw=1"
+    audio: "https://www.dropbox.com/scl/fi/...&raw=1"
   }
 ];
 
@@ -42,9 +42,9 @@ function renderCard(i) {
         <div class="flip-card-face flip-card-front">
           <p class="card-text">${front}</p>
           <button class="play-button" aria-label="Play/Pause">
-            <svg viewBox="0 0 100 100"><polygon points="35,25 35,75 75,50" /></svg>
+            <svg viewBox="0 0 100 100"><polygon points="35,25 35,75 75,50"/></svg>
           </button>
-          <audio><source src="${audio}" type="audio/mpeg"></audio>
+          <audio><source src="${audio}" type="audio/mpeg"/></audio>
         </div>
         <div class="flip-card-face flip-card-back">
           <p class="card-text">${back}</p>
@@ -60,8 +60,8 @@ function setupCardEvents(card) {
   const icon= btn.querySelector('svg');
   const aud = card.querySelector('audio');
 
-  const setPlay  = () => icon.innerHTML = '<polygon points="35,25 35,75 75,50"/>';
-  const setPause = () => icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
+  const setPlay  = ()=> icon.innerHTML = '<polygon points="35,25 35,75 75,50"/>';
+  const setPause = ()=> icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
 
   card.addEventListener('click', e => {
     if (!btn.contains(e.target)) card.classList.toggle('flipped');
@@ -89,9 +89,9 @@ document.getElementById('randomBtn').addEventListener('click', () => {
 });
 
 document.getElementById('nextBtn').addEventListener('click', () => {
-  currentIndex = (currentIndex+1)%cardsData.length;
+  currentIndex = (currentIndex+1) % cardsData.length;
   renderCard(currentIndex);
 });
 
-// рендер первой карточки
+// инициализация
 renderCard(currentIndex);
