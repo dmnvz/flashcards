@@ -6,7 +6,9 @@
   --icon-size: 20px;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -16,31 +18,34 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* ← теперь центрируем и по вертикали, и по горизонтали */
+  justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  padding: 20px;
 }
 
+/* контейнер держит и персонажа, и карточку */
 .card-container {
   position: relative;
   width: var(--card-width);
   height: var(--card-height);
-  margin-bottom: 32px;
-  overflow: visible;
+  overflow: visible;   /* чтобы персонаж не обрезался */
+  margin-bottom: 24px; /* место для кнопок */
 }
 
-/* Персонаж внутри контейнера */
+/* персонаж должен быть позади карточки */
 .character-image {
   position: absolute;
-  top: -60px;                 /* на сколько вылезает над карточкой */
+  top: -60px;               /* на сколько вылезает */
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
   height: auto;
   pointer-events: none;
+  z-index: 0;               /* НИЖЕ, чем у flip-card */
   opacity: 0;
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
-  z-index: 2;
 }
 .character-image img {
   display: block;
@@ -59,8 +64,10 @@ body {
   }
 }
 
-/* Flip-карточки */
+/* саму flip-карточку кладём выше персонажа */
 .flip-card {
+  position: relative;
+  z-index: 1;              /* ВЫШЕ, чем character-image */
   width: 100%;
   height: 100%;
   perspective: 1000px;
@@ -75,6 +82,7 @@ body {
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-face {
   position: absolute;
   width: 100%;
@@ -98,21 +106,20 @@ body {
 
 .card-text {
   font-size: var(--font-size);
-  margin-bottom: 16px;
   line-height: 1.5;
+  margin-bottom: 16px;
 }
 
-/* Кнопка Play/Pause */
 .play-button {
   width: var(--button-size);
   height: var(--button-size);
   border-radius: 50%;
   background: #111;
   border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: background 0.3s;
 }
 .play-button svg {
@@ -122,10 +129,10 @@ body {
 }
 .play-button:hover { background: #333; }
 
-/* Controls */
 .controls {
   display: flex;
   gap: 16px;
+  justify-content: center;
 }
 .controls button {
   padding: 12px 20px;
@@ -137,6 +144,7 @@ body {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   min-width: 120px;
+  text-align: center;
 }
 .controls button:hover {
   background: #f5f5f5;
