@@ -18,88 +18,77 @@ html, body {
 
 body {
   background: #101010;
-  color: #f5f5f5;
-  font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Inter', sans-serif;
+  color: #f5f5f5;
 }
 
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.character-image {
+  position: absolute;
+  /* центрируем по горизонтали */
+  left: 50%;
+  transform: translateX(-50%);
+  /* ставим по вертикали: верх карточки по центру экрана минус 100px */
+  top: calc(50% - var(--card-height)/2 - 100px);
+  width: 200px;     /* увеличенный размер */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.character-image img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .card-container {
   position: relative;
   width: var(--card-width);
   height: var(--card-height);
-  overflow: visible;
   margin-bottom: 24px;
-}
-
-/* персонаж */
-.character-image {
-  position: absolute;
-  top: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 0;
-  animation: rise 0.7s ease-out forwards;
-  animation-delay: 0.3s;
-}
-.character-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-@keyframes rise {
-  from {
-    transform: translateX(-50%) translateY(40px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(-50%) translateY(-80px);
-    opacity: 1;
-  }
-}
-
-/* flip-карточка */
-.flip-card {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  perspective: 1000px;
   z-index: 1;
+  overflow: visible;
 }
+
+.flip-card {
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+}
+
 .flip-card-inner {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
 }
+
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-face {
   position: absolute;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   backface-visibility: hidden;
   border-radius: 12px;
   padding: 24px;
   background: #f5f5f5;
-  /* именно здесь колонка! */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-.flip-card-front { color: #111; }
+
+.flip-card-front {
+  color: #111;
+}
+
 .flip-card-back {
   background: #111;
   color: #f5f5f5;
@@ -112,9 +101,7 @@ body {
   margin-bottom: 16px;
 }
 
-/* кнопка play */
 .play-button {
-  /* вот отступ сверху */
   margin-top: 16px;
   width: var(--button-size);
   height: var(--button-size);
@@ -127,21 +114,23 @@ body {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 .play-button svg {
   width: var(--icon-size);
   height: var(--icon-size);
   fill: #fff;
 }
+
 .play-button:hover {
   background: #333;
 }
 
-/* controls */
 .controls {
   display: flex;
   gap: 16px;
   justify-content: center;
 }
+
 .controls button {
   padding: 12px 20px;
   border-radius: 8px;
@@ -154,6 +143,7 @@ body {
   min-width: 120px;
   text-align: center;
 }
+
 .controls button:hover {
   background: #f5f5f5;
   color: #111;
