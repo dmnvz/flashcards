@@ -32,11 +32,12 @@ body {
 
 .character-image {
   position: absolute;
-  top: -40px;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(40px);
+  transform: translateX(-50%) translateY(40px); /* ← старт немного ниже */
   z-index: 0;
-  width: 140px;
+  height: 140px;
+  width: auto;
   pointer-events: none;
   opacity: 0;
   animation: riseUp 0.8s ease-out forwards;
@@ -178,11 +179,11 @@ body {
 
 @keyframes riseUp {
   from {
-    transform: translateX(-50%) translateY(40px);
+    transform: translateX(-50%) translateY(40px); /* под карточкой */
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(-30px);
+    transform: translateX(-50%) translateY(-30px); /* выглядывает на 30px выше */
     opacity: 1;
   }
 }
