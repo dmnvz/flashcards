@@ -23,21 +23,40 @@ body {
   padding: 40px 20px;
 }
 
+.character-wrapper {
+  position: relative;
+  height: 0;
+  margin-bottom: -40px;
+  z-index: 0;
+}
+
 .character-image {
   position: absolute;
-  top: calc(50% - 260px); /* вылезает из-за карточки */
+  top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(20px);
   height: 140px;
-  width: auto;
-  z-index: 3;
+  opacity: 0;
+  animation: riseFromBelow 1s ease-out forwards;
+  animation-delay: 0.4s;
   pointer-events: none;
 }
 
 .character-image img {
-  width: 100%;
-  height: auto;
   display: block;
+  height: 100%;
+  width: auto;
+}
+
+@keyframes riseFromBelow {
+  from {
+    transform: translateX(-50%) translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
 }
 
 .card-container {
