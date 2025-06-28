@@ -36,7 +36,7 @@ body {
   position: absolute;
   top: -120px;
   left: 50%;
-  transform: translateX(-50%) translateY(40px);
+  transform: translateX(-50%) translateY(20px);
   width: 140px;
   pointer-events: none;
   opacity: 0;
@@ -55,7 +55,7 @@ body {
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(-90px);
+    transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
 }
