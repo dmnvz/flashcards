@@ -34,15 +34,30 @@ body {
 /* персонаж */
 .character-image {
   position: absolute;
-  top: -120px;          /* насколько вылезает из-под карточки */
+  top: -80px;                          /* насколько вылезает из-под карточки */
   left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  height: 100px;
-}
+  transform: translateX(-50%) translateY(40px); /* стартовое смещение */
+  width: 140px;                        /* размер персонажа */
   pointer-events: none;
-  z-index: 0;           /* позади карточки */
+  opacity: 0;
+  z-index: 0;                          /* позади карточки */
+
+  /* анимация выплывания */
+  animation: rise 0.7s ease-out forwards;
+  animation-delay: 0.3s;
 }
+
+@keyframes rise {
+  from {
+    transform: translateX(-50%) translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
 .character-image img {
   display: block;
   width: 100%;
@@ -64,7 +79,12 @@ body {
   width: 100%;
   height: 100%;
   perspective: 1000px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
+
 .flip-card-inner {
   width: 100%;
   height: 100%;
@@ -75,6 +95,7 @@ body {
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-face {
   position: absolute;
   width: 100%;
@@ -83,12 +104,17 @@ body {
   border-radius: 12px;
   padding: 24px;
   background: #f5f5f5;
+
+  /* фиксируем колонную раскладку */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.flip-card-front { color: #111; }
+
+.flip-card-front {
+  color: #111;
+}
 .flip-card-back {
   background: #111;
   color: #f5f5f5;
@@ -103,7 +129,7 @@ body {
 
 /* кнопка play/pause */
 .play-button {
-  margin-top: 16px;
+  margin-top: 16px;           /* отступ от текста */
   width: var(--button-size);
   height: var(--button-size);
   border-radius: 50%;
@@ -113,11 +139,15 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background 0.3s;
 }
 .play-button svg {
   width: var(--icon-size);
   height: var(--icon-size);
   fill: #fff;
+}
+.play-button:hover {
+  background: #333;
 }
 
 /* кнопки под карточкой */
@@ -125,7 +155,7 @@ body {
   display: flex;
   gap: 16px;
   justify-content: center;
- margin-top: 20px; 
+  margin-top: 20px;           /* добавлен отступ от карточки */
 }
 .controls button {
   padding: 12px 20px;
@@ -136,6 +166,8 @@ body {
   font-size: 14px;
   cursor: pointer;
   min-width: 120px;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
 }
 .controls button:hover {
   background: #f5f5f5;
