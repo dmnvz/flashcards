@@ -34,7 +34,7 @@ body {
 /* персонаж */
 .character-image {
   position: absolute;
-  top: -80px;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%) translateY(40px);
   width: 140px;
