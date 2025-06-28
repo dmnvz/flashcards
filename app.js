@@ -38,9 +38,6 @@ function renderCard(index) {
   const { front, back, audio } = cardsData[index];
 
   cardContainer.innerHTML = `
-    <div class="character-image">
-      <img src="./character.png" alt="Character" />
-    </div>
     <div class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-face flip-card-front">
