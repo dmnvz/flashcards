@@ -17,31 +17,30 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   padding: 40px 20px;
 }
 
 .card-container {
-  position: relative;            /* важно для абсолютного позиционирования персонажа */
+  position: relative;
   width: var(--card-width);
   height: var(--card-height);
   margin-bottom: 32px;
-  z-index: 1;
+  overflow: visible;
 }
 
-/* Персонаж внутри карточки */
+/* Персонаж внутри контейнера */
 .character-image {
   position: absolute;
-  top: -60px;                    /* на сколько он вылезает из-под верхней грани карточки */
+  top: -60px;                 /* на сколько вылезает над карточкой */
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
   height: auto;
   pointer-events: none;
-  z-index: 2;                    /* поверх карточки */
   opacity: 0;
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
+  z-index: 2;
 }
 .character-image img {
   display: block;
@@ -60,7 +59,7 @@ body {
   }
 }
 
-/* Flip-карточка */
+/* Flip-карточки */
 .flip-card {
   width: 100%;
   height: 100%;
@@ -99,8 +98,8 @@ body {
 
 .card-text {
   font-size: var(--font-size);
-  line-height: 1.5;
   margin-bottom: 16px;
+  line-height: 1.5;
 }
 
 /* Кнопка Play/Pause */
@@ -110,10 +109,10 @@ body {
   border-radius: 50%;
   background: #111;
   border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: background 0.3s;
 }
 .play-button svg {
@@ -121,15 +120,12 @@ body {
   height: var(--icon-size);
   fill: #fff;
 }
-.play-button:hover {
-  background: #333;
-}
+.play-button:hover { background: #333; }
 
 /* Controls */
 .controls {
   display: flex;
   gap: 16px;
-  justify-content: center;
 }
 .controls button {
   padding: 12px 20px;
@@ -141,7 +137,6 @@ body {
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   min-width: 120px;
-  text-align: center;
 }
 .controls button:hover {
   background: #f5f5f5;
