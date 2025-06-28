@@ -23,48 +23,29 @@ body {
   padding: 40px 20px;
 }
 
-.card-wrapper {
-  position: relative;
+.card-container {
   width: var(--card-width);
   height: var(--card-height);
-  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .character-image {
   position: absolute;
-  top: 0;
+  top: -60px; /* поднимаем над карточкой */
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* начальное положение */
-  z-index: 1;
+  transform: translateX(-50%);
   height: 140px;
+  width: auto;
+  z-index: 2;
   pointer-events: none;
-  opacity: 0;
-  animation: riseUp 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-}
-
-@keyframes riseUp {
-  from {
-    transform: translateX(-50%) translateY(60px); /* немного ниже */
-    opacity: 0;
-  }
-  to {
-    transform: translateX(-50%) translateY(20px); /* чуть выглядывает */
-    opacity: 1;
-  }
+  opacity: 1;
 }
 
 .character-image img {
   width: 100%;
   height: auto;
   display: block;
-}
-
-.card-container {
-  width: var(--card-width);
-  height: var(--card-height);
-  position: relative;
-  z-index: 1;
 }
 
 .flip-card {
@@ -143,7 +124,7 @@ body {
   display: flex;
   gap: 16px;
   justify-content: center;
-  margin-top: 32px; /* увеличенный отступ от карточки */
+  margin-top: 32px;
 }
 
 .controls button {
