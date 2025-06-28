@@ -24,18 +24,20 @@ body {
 }
 
 .character-image {
-  position: relative;
-  top: 60px;              /* поднимаем вверх */
-  margin-bottom: -60px;   /* выдвигаем над карточкой */
+  position: absolute;
+  top: calc(50% - 260px); /* вылезает из-за карточки */
+  left: 50%;
+  transform: translateX(-50%);
   height: 140px;
-  z-index: 0;
+  width: auto;
+  z-index: 3;
   pointer-events: none;
 }
 
 .character-image img {
+  width: 100%;
+  height: auto;
   display: block;
-  width: auto;
-  height: 100%;
 }
 
 .card-container {
