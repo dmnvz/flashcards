@@ -8,42 +8,47 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-  margin: 0;
   background: #101010;
   color: #f5f5f5;
   font-family: 'Inter', sans-serif;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  /* ← теперь центрируем и по вертикали, и по горизонтали */
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
-/* контейнер держит и персонажа, и карточку */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .card-container {
-  position: relative;
+  position: relative;            /* для absolute-персонажа */
   width: var(--card-width);
   height: var(--card-height);
-  overflow: visible;   /* чтобы персонаж не обрезался */
-  margin-bottom: 24px; /* место для кнопок */
+  overflow: visible;             /* персонаж не обрезается */
+  margin-bottom: 24px;
 }
 
-/* персонаж должен быть позади карточки */
+/* Персонаж: внутри контейнера, позади карточки */
 .character-image {
   position: absolute;
-  top: -60px;               /* на сколько вылезает */
+  top: -60px;                    /* насколько вылезает */
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
-  height: auto;
   pointer-events: none;
-  z-index: 0;               /* НИЖЕ, чем у flip-card */
   opacity: 0;
+  z-index: 0;                    /* позади flip-card */
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
 }
@@ -64,13 +69,15 @@ body {
   }
 }
 
-/* саму flip-карточку кладём выше персонажа */
+/* Flip-карточка поверх персонажа */
 .flip-card {
-  position: relative;
-  z-index: 1;              /* ВЫШЕ, чем character-image */
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   perspective: 1000px;
+  z-index: 1;
 }
 .flip-card-inner {
   width: 100%;
@@ -82,7 +89,6 @@ body {
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
-
 .flip-card-face {
   position: absolute;
   width: 100%;
@@ -92,7 +98,6 @@ body {
   padding: 24px;
   background: #f5f5f5;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -110,16 +115,17 @@ body {
   margin-bottom: 16px;
 }
 
+/* Play/Pause */
 .play-button {
   width: var(--button-size);
   height: var(--button-size);
   border-radius: 50%;
   background: #111;
   border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   transition: background 0.3s;
 }
 .play-button svg {
@@ -129,10 +135,10 @@ body {
 }
 .play-button:hover { background: #333; }
 
+/* Controls */
 .controls {
   display: flex;
   gap: 16px;
-  justify-content: center;
 }
 .controls button {
   padding: 12px 20px;
