@@ -34,30 +34,36 @@ body {
 /* персонаж */
 .character-image {
   position: absolute;
-  top: -100px;
+  /* стартовая точка: ровно за верхним краем карточки */
+  top: calc(0px - var(--char-offset));
   left: 50%;
-  transform: translateX(-50%) translateY(60px);
-  width: 140px;
+  transform: translateX(-50%) translateY(var(--char-offset));
+  width: 140px;              /* размер персонажа */
   pointer-events: none;
   opacity: 0;
   z-index: 0;
-}
 
-/* класс, который запускает анимацию */
-.character-image.animate {
+  /* анимация появления */
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
 }
 
 @keyframes rise {
   from {
-    transform: translateX(-50%) translateY(40px);
+    transform: translateX(-50%) translateY(var(--char-offset));
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(-50px);
+    transform: translateX(-50%) translateY(0);
     opacity: 1;
   }
+}
+
+.character-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 }
 
 .character-image img {
