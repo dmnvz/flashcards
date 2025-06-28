@@ -1,33 +1,32 @@
-// Данные карточек
 const cardsData = [
   {
     front: "Don’t apologize to these assholes, you fucking pussy!",
-    back: "Не извиняйся перед этими уродами, лошара!",
+    back:  "Не извиняйся перед этими уродами, лошара!",
     audio: "https://www.dropbox.com/scl/fi/0ru89x8pr6v6jkdkjp2jq/Don-t-apologize-to-these-assholes.-Bryan-Cranston.mp3?rlkey=mjbus84wlwqhhcozf8s872wq6&raw=1"
   },
   {
     front: "Did I screw up?",
-    back: "Я накосячил?",
+    back:  "Я накосячил?",
     audio: "https://www.dropbox.com/scl/fi/lsap6y5xae6ih3xghhlx5/Did-I-screw-up.-Bryan-Cranston.mp3?rlkey=0s8hyr8x846qgbfpg2h23hxk5&raw=1"
   },
   {
     front: "We run this place. You need to slow down or we're going to have a problem.",
-    back: "Это наша территория. Тебе надо сбавить обороты, иначе будут проблемы.",
+    back:  "Это наша территория. Тебе надо сбавить обороты, иначе будут проблемы.",
     audio: "https://www.dropbox.com/scl/fi/6lixj9h2aaw84fo9qy42a/We-run-this-place.-You-need-to-slow-down.-Bryan-Cranston.mp3?rlkey=cnv0e9iq6awe0zu7guvo46497&raw=1"
   },
   {
     front: "The beginning was great but the end was a fiasco.",
-    back: "Начали за здравие, кончили за упокой.",
+    back:  "Начали за здравие, кончили за упокой.",
     audio: "https://www.dropbox.com/scl/fi/98jom6198oy6cvrcx6jv7/The-beginning-was-great.-Bryan-Cranston.mp3?rlkey=534mgizbhy3b8klrrekwnxy5g&raw=1"
   },
   {
     front: "No one can do a good job if they’re not relaxed.",
-    back: "Никто не может хорошо себя проявить, если он не расслаблен.",
+    back:  "Никто не может хорошо себя проявить, если он не расслаблен.",
     audio: "https://www.dropbox.com/scl/fi/2s9qfj8iswoq43n44i1ev/No_one_can_do_-_good_job_if_they-re_not_relaxed_Bryan_Cranston.mp3?rlkey=bln5w5tc6uavt7xkr0ghce3q6&raw=1"
   },
   {
     front: "Damn! I wish I hadn't done that.",
-    back: "Блин! Лучше бы я этого не делал.",
+    back:  "Блин! Лучше бы я этого не делал.",
     audio: "https://www.dropbox.com/scl/fi/pzj49ri50etlfe2yngc7z/Damn-I-wish-I-hadn-t-done-that.-Bryan-Cranston.mp3?rlkey=ptlr9cha42oszyz9fduuo1nxq&raw=1"
   }
 ];
@@ -35,11 +34,12 @@ const cardsData = [
 let currentIndex = 0;
 const cardContainer = document.getElementById('cardContainer');
 
-function renderCard(i) {
-  const { front, back, audio } = cardsData[i];
+function renderCard(index) {
+  const { front, back, audio } = cardsData[index];
+
   cardContainer.innerHTML = `
     <div class="character-image">
-      <img src="./character.png" alt="Character">
+      <img src="./character.png" alt="Character" />
     </div>
     <div class="flip-card">
       <div class="flip-card-inner">
@@ -48,7 +48,9 @@ function renderCard(i) {
           <button class="play-button" aria-label="Play/Pause">
             <svg viewBox="0 0 100 100"><polygon points="35,25 35,75 75,50" /></svg>
           </button>
-          <audio><source src="${audio}" type="audio/mpeg"></audio>
+          <audio>
+            <source src="${audio}" type="audio/mpeg" />
+          </audio>
         </div>
         <div class="flip-card-face flip-card-back">
           <p class="card-text">${back}</p>
@@ -56,44 +58,70 @@ function renderCard(i) {
       </div>
     </div>
   `;
+
   setupCardEvents(cardContainer.querySelector('.flip-card'));
 }
 
 function setupCardEvents(card) {
-  const btn = card.querySelector('.play-button');
-  const icon = btn.querySelector('svg');
-  const audio = card.querySelector('audio');
+  const button = card.querySelector('.play-button');
+  const icon   = button.querySelector('svg');
+  const audioEl= card.querySelector('audio');
 
-  const setPlay = () => icon.innerHTML = '<polygon points="35,25 35,75 75,50"/>';
-  const setPause= () => icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
+  const setPlayIcon = () => {
+    icon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
+  };
+  const setPauseIcon = () => {
+    icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
+  };
 
+  // Переворот карточки по клику не на кнопку
   card.addEventListener('click', e => {
-    if (!btn.contains(e.target)) card.classList.toggle('flipped');
+    if (!button.contains(e.target)) {
+      card.classList.toggle('flipped');
+    }
   });
 
-  btn.addEventListener('click', e => {
+  // Play/Pause
+  button.addEventListener('click', e => {
     e.stopPropagation();
+    // Пауза у остальных
     document.querySelectorAll('audio').forEach(a => {
-      if (a!==audio) { a.pause(); setPlay(); }
+      if (a !== audioEl) {
+        a.pause();
+        const otherIcon = a.closest('.flip-card')?.querySelector('.play-button svg');
+        if (otherIcon) otherIcon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
+      }
     });
-    if (audio.paused) { audio.play(); setPause(); }
-    else { audio.pause(); setPlay(); }
+    // Toggle у этого
+    if (audioEl.paused) {
+      audioEl.play();
+      setPauseIcon();
+    } else {
+      audioEl.pause();
+      setPlayIcon();
+    }
   });
 
-  audio.addEventListener('ended', setPlay);
-  setPlay();
+  // Когда звук закончится
+  audioEl.addEventListener('ended', setPlayIcon);
+
+  // Иконка по умолчанию
+  setPlayIcon();
 }
 
 document.getElementById('randomBtn').addEventListener('click', () => {
   let next;
-  do { next = Math.floor(Math.random()*cardsData.length); }
-  while (next===currentIndex && cardsData.length>1);
-  currentIndex = next; renderCard(currentIndex);
-});
-
-document.getElementById('nextBtn').addEventListener('click', () => {
-  currentIndex = (currentIndex+1)%cardsData.length;
+  do {
+    next = Math.floor(Math.random() * cardsData.length);
+  } while (next === currentIndex && cardsData.length > 1);
+  currentIndex = next;
   renderCard(currentIndex);
 });
 
+document.getElementById('nextBtn').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % cardsData.length;
+  renderCard(currentIndex);
+});
+
+// Инициализируем первую карточку
 renderCard(currentIndex);
