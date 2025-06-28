@@ -34,7 +34,7 @@ body {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(40px); /* ← старт немного ниже */
+  transform: translateX(-50%) translateY(20px);
   z-index: 0;
   height: 140px;
   width: auto;
@@ -144,6 +144,7 @@ body {
   display: flex;
   gap: 16px;
   justify-content: center;
+  margin-top: 32px; /* увеличенный отступ от карточки */
 }
 
 .controls button {
@@ -162,28 +163,4 @@ body {
 .controls button:hover {
   background: #f5f5f5;
   color: #111;
-}
-.character-image {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(60px);
-  z-index: 0;
-  height: 140px;
-  width: auto;
-  pointer-events: none;
-  opacity: 0;
-  animation: riseUp 0.8s ease-out forwards;
-  animation-delay: 0.3s;
-}
-
-@keyframes riseUp {
-  from {
-    transform: translateX(-50%) translateY(40px); /* под карточкой */
-    opacity: 0;
-  }
-  to {
-    transform: translateX(-50%) translateY(-30px); /* выглядывает на 30px выше */
-    opacity: 1;
-  }
 }
