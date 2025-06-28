@@ -6,9 +6,7 @@
   --icon-size: 20px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -23,39 +21,37 @@ body {
   padding: 40px 20px;
 }
 
-/* Обёртка персонажа: высота нулевая, но позволяет выдвигать персонажа */
-.character-wrapper {
-  position: relative;
+.card-container {
+  position: relative;            /* важно для абсолютного позиционирования персонажа */
   width: var(--card-width);
-  height: 0;
-  margin-bottom: -40px; /* сдвигает персонажа назад, кверху */
-  z-index: 0;
+  height: var(--card-height);
+  margin-bottom: 32px;
+  z-index: 1;
 }
 
-/* Сам персонаж */
+/* Персонаж внутри карточки */
 .character-image {
   position: absolute;
-  top: 100%; /* начало внизу карточки */
+  top: -60px;                    /* на сколько он вылезает из-под верхней грани карточки */
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  height: 140px;
-  width: auto;
-  opacity: 0;
-  animation: riseFromBelow 0.8s ease-out forwards;
-  animation-delay: 0.3s;
+  transform: translateX(-50%);
+  width: 140px;
+  height: auto;
   pointer-events: none;
-  z-index: 1; /* над карточкой */
+  z-index: 2;                    /* поверх карточки */
+  opacity: 0;
+  animation: rise 0.7s ease-out forwards;
+  animation-delay: 0.3s;
 }
-
 .character-image img {
   display: block;
-  height: 100%;
-  width: auto;
+  width: 100%;
+  height: auto;
 }
 
-@keyframes riseFromBelow {
+@keyframes rise {
   from {
-    transform: translateX(-50%) translateY(60px);
+    transform: translateX(-50%) translateY(40px);
     opacity: 0;
   }
   to {
@@ -64,33 +60,22 @@ body {
   }
 }
 
-/* Карточка */
-.card-container {
-  width: var(--card-width);
-  height: var(--card-height);
-  position: relative;
-  z-index: 2;
-}
-
-/* Остальные стили карточки, кнопок и анимаций 그대로 */
+/* Flip-карточка */
 .flip-card {
   width: 100%;
   height: 100%;
   perspective: 1000px;
 }
-
 .flip-card-inner {
   width: 100%;
   height: 100%;
-  transition: transform 0.6s ease;
-  transform-style: preserve-3d;
   position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
 }
-
 .flip-card.flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
-
 .flip-card-face {
   position: absolute;
   width: 100%;
@@ -105,7 +90,6 @@ body {
   align-items: center;
   text-align: center;
 }
-
 .flip-card-front { color: #111; }
 .flip-card-back {
   background: #111;
@@ -115,10 +99,11 @@ body {
 
 .card-text {
   font-size: var(--font-size);
-  line-height: 1.4;
+  line-height: 1.5;
   margin-bottom: 16px;
 }
 
+/* Кнопка Play/Pause */
 .play-button {
   width: var(--button-size);
   height: var(--button-size);
@@ -131,22 +116,21 @@ body {
   justify-content: center;
   transition: background 0.3s;
 }
-
 .play-button svg {
   width: var(--icon-size);
   height: var(--icon-size);
   fill: #fff;
 }
+.play-button:hover {
+  background: #333;
+}
 
-.play-button:hover { background: #333; }
-
+/* Controls */
 .controls {
   display: flex;
   gap: 16px;
   justify-content: center;
-  margin-top: 32px;
 }
-
 .controls button {
   padding: 12px 20px;
   border-radius: 8px;
@@ -159,7 +143,6 @@ body {
   min-width: 120px;
   text-align: center;
 }
-
 .controls button:hover {
   background: #f5f5f5;
   color: #111;
