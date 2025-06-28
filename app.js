@@ -35,11 +35,12 @@ const cardsData = [
 let currentIndex = 0;
 const cardContainer = document.getElementById('cardContainer');
 
-// Рендер одной карточки
-function renderCard(index) {
-  const { front, back, audio } = cardsData[index];
-
+function renderCard(i) {
+  const { front, back, audio } = cardsData[i];
   cardContainer.innerHTML = `
+    <div class="character-image">
+      <img src="./character.png" alt="Character">
+    </div>
     <div class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-face flip-card-front">
@@ -47,9 +48,7 @@ function renderCard(index) {
           <button class="play-button" aria-label="Play/Pause">
             <svg viewBox="0 0 100 100"><polygon points="35,25 35,75 75,50" /></svg>
           </button>
-          <audio>
-            <source src="${audio}" type="audio/mpeg" />
-          </audio>
+          <audio><source src="${audio}" type="audio/mpeg"></audio>
         </div>
         <div class="flip-card-face flip-card-back">
           <p class="card-text">${back}</p>
@@ -57,72 +56,44 @@ function renderCard(index) {
       </div>
     </div>
   `;
-
   setupCardEvents(cardContainer.querySelector('.flip-card'));
 }
 
-// Настройка событий на карточке
 function setupCardEvents(card) {
-  const button = card.querySelector('.play-button');
-  const icon = button.querySelector('svg');
+  const btn = card.querySelector('.play-button');
+  const icon = btn.querySelector('svg');
   const audio = card.querySelector('audio');
 
-  const setPlayIcon = () => {
-    icon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
-  };
-  const setPauseIcon = () => {
-    icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
-  };
+  const setPlay = () => icon.innerHTML = '<polygon points="35,25 35,75 75,50"/>';
+  const setPause= () => icon.innerHTML = '<rect x="30" y="25" width="12" height="50"/><rect x="58" y="25" width="12" height="50"/>';
 
-  // Клик по карточке — переворот
   card.addEventListener('click', e => {
-    if (!button.contains(e.target)) {
-      card.classList.toggle('flipped');
-    }
+    if (!btn.contains(e.target)) card.classList.toggle('flipped');
   });
 
-  // Плей/пауза
-  button.addEventListener('click', e => {
+  btn.addEventListener('click', e => {
     e.stopPropagation();
-    // Останавливаем все другие аудио
     document.querySelectorAll('audio').forEach(a => {
-      if (a !== audio) {
-        a.pause();
-        const otherIcon = a.closest('.flip-card')?.querySelector('.play-button svg');
-        if (otherIcon) otherIcon.innerHTML = '<polygon points="35,25 35,75 75,50" />';
-      }
+      if (a!==audio) { a.pause(); setPlay(); }
     });
-    // Сами play/pause
-    if (audio.paused) {
-      audio.play();
-      setPauseIcon();
-    } else {
-      audio.pause();
-      setPlayIcon();
-    }
+    if (audio.paused) { audio.play(); setPause(); }
+    else { audio.pause(); setPlay(); }
   });
 
-  // При окончании воспроизведения — вернуть иконку Play
-  audio.addEventListener('ended', setPlayIcon);
-
-  // Инициализировать иконку Play
-  setPlayIcon();
+  audio.addEventListener('ended', setPlay);
+  setPlay();
 }
 
-// Кнопки Random и Next
 document.getElementById('randomBtn').addEventListener('click', () => {
   let next;
-  do {
-    next = Math.floor(Math.random() * cardsData.length);
-  } while (next === currentIndex && cardsData.length > 1);
-  currentIndex = next;
-  renderCard(currentIndex);
+  do { next = Math.floor(Math.random()*cardsData.length); }
+  while (next===currentIndex && cardsData.length>1);
+  currentIndex = next; renderCard(currentIndex);
 });
 
 document.getElementById('nextBtn').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % cardsData.length;
+  currentIndex = (currentIndex+1)%cardsData.length;
   renderCard(currentIndex);
 });
 
-// Первый рендер
 renderCard(currentIndex);
