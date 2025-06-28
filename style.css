@@ -23,6 +23,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 .app-wrapper {
@@ -32,23 +33,23 @@ body {
 }
 
 .card-container {
-  position: relative;            /* для absolute-персонажа */
+  position: relative;
   width: var(--card-width);
   height: var(--card-height);
-  overflow: visible;             /* персонаж не обрезается */
+  overflow: visible;
   margin-bottom: 24px;
 }
 
-/* Персонаж: внутри контейнера, позади карточки */
+/* Персонаж */
 .character-image {
   position: absolute;
-  top: -60px;                    /* насколько вылезает */
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
   pointer-events: none;
   opacity: 0;
-  z-index: 0;                    /* позади flip-card */
+  z-index: 0;
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
 }
@@ -57,7 +58,6 @@ body {
   width: 100%;
   height: auto;
 }
-
 @keyframes rise {
   from {
     transform: translateX(-50%) translateY(40px);
@@ -72,17 +72,14 @@ body {
 /* Flip-карточка поверх персонажа */
 .flip-card {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   perspective: 1000px;
   z-index: 1;
 }
 .flip-card-inner {
-  width: 100%;
-  height: 100%;
   position: relative;
+  width: 100%; height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
 }
@@ -91,13 +88,13 @@ body {
 }
 .flip-card-face {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   backface-visibility: hidden;
   border-radius: 12px;
   padding: 24px;
   background: #f5f5f5;
   display: flex;
+  flex-direction: column;      /* вернули столбец */
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -117,6 +114,7 @@ body {
 
 /* Play/Pause */
 .play-button {
+  margin-top: 16px;            /* отступ над кнопкой */
   width: var(--button-size);
   height: var(--button-size);
   border-radius: 50%;
@@ -133,12 +131,15 @@ body {
   height: var(--icon-size);
   fill: #fff;
 }
-.play-button:hover { background: #333; }
+.play-button:hover {
+  background: #333;
+}
 
 /* Controls */
 .controls {
   display: flex;
   gap: 16px;
+  justify-content: center;
 }
 .controls button {
   padding: 12px 20px;
