@@ -55,7 +55,7 @@ body {
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(-50px);
+    transform: translateX(-50%) translateY(-90px);
     opacity: 1;
   }
 }
