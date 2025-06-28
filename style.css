@@ -34,15 +34,17 @@ body {
 /* персонаж */
 .character-image {
   position: absolute;
-  top: -80px;                          /* насколько вылезает из-под карточки */
+  top: -80px;
   left: 50%;
-  transform: translateX(-50%) translateY(40px); /* стартовое смещение */
-  width: 140px;                        /* размер персонажа */
+  transform: translateX(-50%) translateY(40px);
+  width: 140px;
   pointer-events: none;
   opacity: 0;
-  z-index: 0;                          /* позади карточки */
+  z-index: 0;
+}
 
-  /* анимация выплывания */
+/* класс, который запускает анимацию */
+.character-image.animate {
   animation: rise 0.7s ease-out forwards;
   animation-delay: 0.3s;
 }
