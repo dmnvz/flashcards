@@ -38,6 +38,9 @@ function renderCard(index) {
   const { front, back, audio } = cardsData[index];
 
   cardContainer.innerHTML = `
+    <div class="character-image">
+      <img src="./character.png" alt="Character" />
+    </div>
     <div class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-face flip-card-front">
@@ -69,7 +72,10 @@ function setupCardEvents(card) {
   };
 
   const setPauseIcon = () => {
-    icon.innerHTML = '<rect x="30" y="25" width="12" height="50" /><rect x="58" y="25" width="12" height="50" />';
+    icon.innerHTML = `
+      <rect x="30" y="25" width="12" height="50" />
+      <rect x="58" y="25" width="12" height="50" />
+    `;
   };
 
   card.addEventListener('click', (e) => {
