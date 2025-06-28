@@ -34,11 +34,11 @@ body {
 /* персонаж */
 .character-image {
   position: absolute;
-  top: -100px;          /* насколько вылезает из-под карточки */
+  top: -120px;          /* насколько вылезает из-под карточки */
   left: 50%;
   transform: translateX(-50%);
   width: auto;
-  height: 120px;
+  height: 100px;
 }
   pointer-events: none;
   z-index: 0;           /* позади карточки */
