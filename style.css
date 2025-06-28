@@ -37,7 +37,9 @@ body {
   top: -100px;          /* насколько вылезает из-под карточки */
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;         /* увеличенный размер */
+  width: auto;
+  height: 120px;
+}
   pointer-events: none;
   z-index: 0;           /* позади карточки */
 }
@@ -123,6 +125,7 @@ body {
   display: flex;
   gap: 16px;
   justify-content: center;
+ margin-top: 20px; 
 }
 .controls button {
   padding: 12px 20px;
